@@ -4,9 +4,45 @@
 	<meta charset="utf-8">
 	<script>
 		// TODO: create a handler
+		const handleSetSearchEngine = (e) => {
+			const actions = {
+				'bing': "https://www.bing.com/",
+				'google': "https://www.google.com/",
+				'duckDuckGo': "https://www.duckduckgo.com/",
+				'ask': "https://www.ask.com/web"
+			};
+
+			const form = document.getElementById('form');
+			const selectedEngine = document.querySelector('input(name=engine):checked');
+			const searchTerm = document.querySelector('input[name=q]').value;
+			if(searchTerm.trim()===''){
+			e.preventDefault();
+			alert("Please enter a search term!");
+			}
+
+
+
+			if(selectedEngine==null){
+				e.preventDefault();
+				alert("Please select an engine!");
+				return;
+			}
+
+			const action = actions[selectedEngine.value]
+
+			if(action == undefined) {
+				e.preventDefault();
+				alert("You broke your code!");
+				return;
+			}
+			form.setAttribute('action',action)
+
+		}
+
     window.addEventListener("load", function(){
         // TODO: register the handler
-    });
+		let form = document.getElementById("searchForm");
+	});
 	</script>
 </head>
 
@@ -14,6 +50,12 @@
 
 	<form id="searchForm">
     <!-- TODO: add form elements -->
+	<input type="text" name="q"/>
+	<label><input type="radio" name="engine" value="google">Google
+	<input type="radio" name="engine" value="duckDuckGo">DuckDuckGo
+	<input type="radio" name="engine" value="bing">Bing
+	<input type="radio" name="engine" value="ask">Ask </label>
+	<input type="submit" name="go" id="go" value="Go!"/>
 	</form>
 
 </body>
